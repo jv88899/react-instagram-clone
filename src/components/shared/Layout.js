@@ -1,5 +1,6 @@
 import React from "react";
 import { useLayoutStyles } from "../../styles";
+import Navbar from "../shared/Navbar";
 import SEO from "../shared/Seo";
 
 function Layout({ children, title }) {
@@ -8,6 +9,7 @@ function Layout({ children, title }) {
   return (
     <section className={classes.section}>
       <SEO title={title} />
+      <Navbar />
       <main className={classes.main}>
         <section className={classes.childrenWrapper}>
           <div className={classes.children}>{children}</div>
