@@ -21,6 +21,14 @@ function SignUpPage() {
         <article>
           <Card className={classes.card}>
             <div className={classes.cardHeader} />
+            <Typography className={classes.cardHeaderSubHeader}>
+              Sign up to see photos and videos from your friends.
+            </Typography>
+            <LoginWithFacebook
+              color="primary"
+              iconColor="white"
+              variant="contained"
+            />
             <form>
               <TextField
                 fullWidth
