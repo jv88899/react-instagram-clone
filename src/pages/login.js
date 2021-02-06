@@ -35,6 +35,7 @@ function LoginPage() {
                 fullWidth
                 variant="filled"
                 label="Password"
+                type="password"
                 margin="dense"
                 className={classes.textField}
                 autoComplete="current-password"
