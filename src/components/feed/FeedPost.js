@@ -5,6 +5,7 @@ import { MoreIcon } from "../../icons";
 
 function FeedPost({ post }) {
   const classes = useFeedPostStyles();
+  const { media } = post;
 
   return (
     <>
@@ -13,6 +14,10 @@ function FeedPost({ post }) {
         <div className={classes.postHeader}>
           <UserCard />
           <MoreIcon className={classes.moreIcon} />
+        </div>
+        {/* Feed Post Image */}
+        <div>
+          <img src={media} alt="Post media" className={classes.image} />
         </div>
       </article>
     </>
