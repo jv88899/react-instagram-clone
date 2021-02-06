@@ -1,15 +1,9 @@
 import React from "react";
 import { useSignUpPageStyles } from "../styles";
 import SEO from "../components/shared/Seo";
-import {
-  Button,
-  Card,
-  CardHeader,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Button, Card, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import LoginWithFacebook from "./login";
+import { LoginWithFacebook } from "./login";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
@@ -78,7 +72,7 @@ function SignUpPage() {
                 className={classes.button}
                 type="submit"
               >
-                Log In
+                Sign Up
               </Button>
             </form>
             <div className={classes.orContainer}>
@@ -90,18 +84,14 @@ function SignUpPage() {
               </div>
               <div className={classes.orLine}></div>
             </div>
-            <LoginWithFacebook color="secondary" iconColor="blue" />
-            <Button fullWidth color="secondary">
-              <Typography variant="caption">Forgot password?</Typography>
-            </Button>
           </Card>
-          <Card className={classes.signUpCard}>
+          <Card className={classes.loginCard}>
             <Typography align="right" variant="body2">
-              Don't have an account?
+              Have an account?
             </Typography>
-            <Link to="/accounts/emailsignup">
-              <Button color="primary" className={classes.signUpButton}>
-                Sign up
+            <Link to="/accounts/login">
+              <Button color="primary" className={classes.loginButton}>
+                Login
               </Button>
             </Link>
           </Card>
