@@ -29,7 +29,31 @@ function SignUpPage() {
               iconColor="white"
               variant="contained"
             />
+            <div className={classes.orContainer}>
+              <div className={classes.orLine}></div>
+              <div>
+                <Typography variant="body2" color="textSecondary">
+                  OR
+                </Typography>
+              </div>
+              <div className={classes.orLine}></div>
+            </div>
             <form>
+              <TextField
+                fullWidth
+                variant="filled"
+                label="Email"
+                type="email"
+                margin="dense"
+                className={classes.textField}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                label="Full Name"
+                margin="dense"
+                className={classes.textField}
+              />
               <TextField
                 fullWidth
                 variant="filled"
@@ -42,9 +66,10 @@ function SignUpPage() {
                 fullWidth
                 variant="filled"
                 label="Password"
+                type="password"
                 margin="dense"
                 className={classes.textField}
-                autoComplete="current-password"
+                autoComplete="new-password"
               />
               <Button
                 variant="contained"
