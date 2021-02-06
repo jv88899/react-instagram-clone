@@ -21,7 +21,7 @@ function LoginPage() {
       <section className={classes.section}>
         <article>
           <Card className={classes.card}>
-            <CardHeader className={classes.card} />
+            <CardHeader className={classes.cardHeader} />
             <form>
               <TextField
                 fullWidth
