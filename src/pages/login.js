@@ -85,7 +85,7 @@ export function LoginWithFacebook({ color, iconColor, variant }) {
     iconColor === "blue" ? FacebookIconBlue : FacebookIconWhite;
 
   return (
-    <Button fullWidth color={color}>
+    <Button fullWidth color={color} variant={variant}>
       <img
         src={facebookIcon}
         alt="facebook icon"
