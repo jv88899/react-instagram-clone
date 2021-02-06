@@ -109,15 +109,15 @@ function FeedPost({ post }) {
 }
 
 function LikeButton() {
-  return null;
+  return <>LikeButton</>;
 }
 
 function SaveButton() {
-  return null;
+  return <>SaveButton</>;
 }
 
 function Comment() {
-  return null;
+  return <>Comment</>;
 }
 
 export default FeedPost;
