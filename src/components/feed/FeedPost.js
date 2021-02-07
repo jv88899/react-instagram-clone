@@ -1,7 +1,13 @@
 import React from "react";
 import { useFeedPostStyles } from "../../styles";
 import UserCard from "../shared/UserCard";
-import { CommentIcon, MoreIcon, ShareIcon } from "../../icons";
+import {
+  CommentIcon,
+  LikeIcon,
+  MoreIcon,
+  ShareIcon,
+  UnlikeIcon,
+} from "../../icons";
 import { Link } from "react-router-dom";
 import { Button, Divider, Hidden, Typography } from "@material-ui/core";
 import HTMLEllipsis from "react-lines-ellipsis/lib/html";
@@ -109,7 +115,11 @@ function FeedPost({ post }) {
 }
 
 function LikeButton() {
-  return <>LikeButton</>;
+  const classes = useFeedPostStyles();
+  const [liked, setLiked] = React.useState(false);
+  const Icon = liked ? UnlikeIcon : LikeIcon;
+
+  return <Icon />;
 }
 
 function SaveButton() {
