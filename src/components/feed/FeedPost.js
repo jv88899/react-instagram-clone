@@ -118,8 +118,20 @@ function LikeButton() {
   const classes = useFeedPostStyles();
   const [liked, setLiked] = React.useState(false);
   const Icon = liked ? UnlikeIcon : LikeIcon;
+  const className = liked ? classes.liked : classes.like;
+  const onClick = liked ? handleUnlike : handleLike;
 
-  return <Icon />;
+  function handleLike() {
+    console.log("like");
+    setLiked(true);
+  }
+
+  function handleUnlike() {
+    console.log("unliked");
+    setLiked(false);
+  }
+
+  return <Icon className={className} onClick={onClick} />;
 }
 
 function SaveButton() {
