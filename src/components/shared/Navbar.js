@@ -4,15 +4,19 @@ import { AppBar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
 
-function Navbar() {
+function Navbar({ minimalNavbar }) {
   const classes = useNavbarStyles();
 
   return (
     <AppBar className={classes.appBar}>
       <section className={classes.section}>
         <Logo />
-        <Search />
-        <Links />
+        {!minimalNavbar && (
+          <>
+            <Search />
+            <Links />
+          </>
+        )}
       </section>
     </AppBar>
   );
