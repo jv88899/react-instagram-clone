@@ -25,7 +25,7 @@ function FollowButton({ side }) {
       onClick={() => setFollowing(false)}
       fullWidth
     >
-      followButton
+      Following
     </Button>
   );
 
