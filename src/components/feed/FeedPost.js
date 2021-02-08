@@ -171,7 +171,8 @@ function Comment() {
         fullWidth
         value={content}
         placeholder="Add a comment..."
-        multilinerowsMax={2}
+        multiline
+        rowsMax={2}
         rows={1}
         onChange={(event) => setContent(event.target.value)}
         className={classes.textField}
