@@ -3,7 +3,16 @@ import { useNavbarStyles } from "../../styles";
 import { AppBar, Hidden, InputBase } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
-import { LoadingIcon } from "../../icons";
+import {
+  LoadingIcon,
+  AddIcon,
+  LikeIcon,
+  LikeActiveIcon,
+  ExploreIcon,
+  ExploreActiveIcon,
+  HomeIcon,
+  HomeActiveIcon,
+} from "../../icons";
 
 function Navbar({ minimalNavbar }) {
   const classes = useNavbarStyles();
@@ -68,6 +77,7 @@ function Search() {
 }
 
 function Links() {
+  const classes = useNavbarStyles();
   return null;
 }
 
