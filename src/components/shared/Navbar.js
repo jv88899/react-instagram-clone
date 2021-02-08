@@ -11,12 +11,12 @@ function Navbar() {
     <AppBar className={classes.appBar}>
       <section className={classes.section}>
         <Logo />
+        <Search />
+        <Links />
       </section>
     </AppBar>
   );
 }
-
-export default Navbar;
 
 function Logo() {
   const classes = useNavbarStyles();
@@ -31,3 +31,13 @@ function Logo() {
     </div>
   );
 }
+
+function Search() {
+  return null;
+}
+
+function Links() {
+  return null;
+}
+
+export default Navbar;
