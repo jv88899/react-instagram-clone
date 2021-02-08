@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavbarStyles } from "../../styles";
-import { AppBar, Hidden, InputBase } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { AppBar, Avatar, Hidden, InputBase } from "@material-ui/core";
+import { Link, useHistory } from "react-router-dom";
 import logo from "../../images/logo.png";
 import {
   LoadingIcon,
@@ -13,9 +13,12 @@ import {
   HomeIcon,
   HomeActiveIcon,
 } from "../../icons";
+import { defaultCurrentUser } from "../../data";
 
 function Navbar({ minimalNavbar }) {
   const classes = useNavbarStyles();
+  const history = useHistory();
+  const path = history.location.pathname;
 
   return (
     <AppBar className={classes.appBar}>
@@ -24,7 +27,7 @@ function Navbar({ minimalNavbar }) {
         {!minimalNavbar && (
           <>
             <Search />
-            <Links />
+            <Links path={path} />
           </>
         )}
       </section>
@@ -76,9 +79,38 @@ function Search() {
   );
 }
 
-function Links() {
+function Links({ path }) {
   const classes = useNavbarStyles();
-  return null;
+  const [showList, setList] = React.useState(false);
+  return (
+    <div className={classes.linksContainer}>
+      <div className={classes.linksWrapper}>
+        <Hidden xsDown>
+          <AddIcon />
+        </Hidden>
+        <Link to="/">{path === "/" ? <HomeActiveIcon /> : <HomeIcon />}</Link>
+        <Link to="/explore">
+          {path === "/explore" ? <ExploreActiveIcon /> : <ExploreIcon />}
+        </Link>
+        <div className={classes.notifications}>
+          {showList ? <LikeActiveIcon /> : <LikeIcon />}
+        </div>
+        <Link to={`/${defaultCurrentUser.username}`}>
+          <div
+            className={
+              path === `/${defaultCurrentUser.username}`
+                ? classes.profileActive
+                : ""
+            }
+          ></div>
+          <Avatar
+            src={defaultCurrentUser.profile_image}
+            className={classes.profileImage}
+          />
+        </Link>
+      </div>
+    </div>
+  );
 }
 
 export default Navbar;
