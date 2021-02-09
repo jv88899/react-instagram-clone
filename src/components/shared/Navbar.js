@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavbarStyles, WhiteTooltip } from "../../styles";
+import { useNavbarStyles, WhiteTooltip, RedTooltip } from "../../styles";
 import {
   AppBar,
   Avatar,
@@ -8,6 +8,7 @@ import {
   Hidden,
   InputBase,
   Typography,
+  Zoom,
 } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../../images/logo.png";
@@ -21,6 +22,7 @@ import {
   HomeIcon,
   HomeActiveIcon,
 } from "../../icons";
+import { NotificationToolTip } from "../notification/NotificationTooltip";
 import { defaultCurrentUser, getDefaultUser } from "../../data";
 
 function Navbar({ minimalNavbar }) {
@@ -133,9 +135,14 @@ function Search({ history }) {
 function Links({ path }) {
   const classes = useNavbarStyles();
   const [showList, setList] = React.useState(false);
+  const [showTooltip, setTooltip] = React.useState(false);
 
   function handleToggleList() {
     setList((prev) => !prev);
+  }
+
+  function handleHideTooltip() {
+    setTooltip(false);
   }
 
   return (
@@ -148,9 +155,17 @@ function Links({ path }) {
         <Link to="/explore">
           {path === "/explore" ? <ExploreActiveIcon /> : <ExploreIcon />}
         </Link>
-        <div className={classes.notifications} onClick={handleToggleList}>
-          {showList ? <LikeActiveIcon /> : <LikeIcon />}
-        </div>
+        <RedTooltip
+          arrow
+          open={showTooltip}
+          onOpen={handleHideTooltip}
+          TransitionComponent={Zoom}
+          title={<NotificationToolTip />}
+        >
+          <div className={classes.notifications} onClick={handleToggleList}>
+            {showList ? <LikeActiveIcon /> : <LikeIcon />}
+          </div>
+        </RedTooltip>
         <Link to={`/${defaultCurrentUser.username}`}>
           <div
             className={
