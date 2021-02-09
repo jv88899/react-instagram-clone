@@ -82,6 +82,11 @@ function Search() {
 function Links({ path }) {
   const classes = useNavbarStyles();
   const [showList, setList] = React.useState(false);
+
+  function handleToggleList() {
+    setList((prev) => !prev);
+  }
+
   return (
     <div className={classes.linksContainer}>
       <div className={classes.linksWrapper}>
@@ -92,7 +97,7 @@ function Links({ path }) {
         <Link to="/explore">
           {path === "/explore" ? <ExploreActiveIcon /> : <ExploreIcon />}
         </Link>
-        <div className={classes.notifications}>
+        <div className={classes.notifications} onClick={handleToggleList}>
           {showList ? <LikeActiveIcon /> : <LikeIcon />}
         </div>
         <Link to={`/${defaultCurrentUser.username}`}>
