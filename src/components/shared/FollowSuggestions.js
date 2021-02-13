@@ -9,20 +9,22 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import FollowButton from "./FollowButton";
 
-function FollowSuggestions() {
+function FollowSuggestions({ hideHeader }) {
   const classes = useFollowSuggestionsStyles();
 
   let loading = false;
 
   return (
     <div className={classes.container}>
-      <Typography
-        color="textSecondary"
-        variant="subtitle2"
-        className={classes.typography}
-      >
-        Suggestions for You
-      </Typography>
+      {!hideHeader && (
+        <Typography
+          color="textSecondary"
+          variant="subtitle2"
+          className={classes.typography}
+        >
+          Suggestions for You
+        </Typography>
+      )}
       {loading ? (
         <LoadingLargeIcon />
       ) : (

@@ -17,7 +17,7 @@ function ExploreSuggestions() {
         >
           Discover People
         </Typography>
-        <FollowSuggestions />
+        <FollowSuggestions hideHeader={true} />
       </div>
     </Hidden>
   );
