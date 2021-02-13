@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 import EditProfilePage from "./pages/edit-profile";
 import ExplorePage from "./pages/explore";
 import FeedPage from "./pages/feed";
@@ -11,6 +11,9 @@ import SignUpPage from "./pages/signup";
 import PostModal from "./components/post/PostModal";
 
 function App() {
+  const history = useHistory();
+  const location = useLocation();
+
   return (
     <Switch>
       <Route exact path="/" component={FeedPage} />
