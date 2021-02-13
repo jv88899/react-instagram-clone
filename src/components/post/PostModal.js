@@ -1,17 +1,20 @@
 import React from "react";
 import Modal from "react-modal";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { usePostModalStyles } from "../../styles";
+import { CloseIcon } from "../../icons";
 import Post from "./Post";
 
 function PostModal() {
   const history = useHistory();
+  const { postId } = useParams();
   const classes = usePostModalStyles();
 
   return (
     <>
       <Modal
         isOpen
+        ariaHideApp={false}
         overlayClassName={classes.overlay}
         onRequestClose={() => history.goBack()}
         style={{
@@ -32,8 +35,11 @@ function PostModal() {
           },
         }}
       >
-        <Post />
+        <Post id={postId} />
       </Modal>
+      <div onClick={() => history.goBack()} className={classes.close}>
+        <CloseIcon />
+      </div>
     </>
   );
 }
