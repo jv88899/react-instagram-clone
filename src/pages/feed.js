@@ -1,6 +1,6 @@
 import React from "react";
 import { useFeedPageStyles } from "../styles";
-// import FeedPost from "../components/feed/FeedPost";
+import FeedPostSkeleton from "../components/feed/FeedPostSkeleton";
 import FeedSideSuggestions from "../components/feed/FeedSideSuggestions";
 import Layout from "../components/shared/Layout";
 import UserCard from "../components/shared/UserCard";
@@ -24,7 +24,7 @@ function FeedPage() {
         <div>
           {Array.from({ length: 5 }, () => getDefaultPost()).map(
             (post, index) => (
-              <React.Suspense key={post.id} fallback={<>loading</>}>
+              <React.Suspense key={post.id} fallback={<FeedPostSkeleton />}>
                 <FeedPost index={index} post={post} />
               </React.Suspense>
             )
