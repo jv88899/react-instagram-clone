@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   CardContent,
+  Dialog,
   Hidden,
   Typography,
 } from "@material-ui/core";
@@ -147,6 +148,21 @@ function PostCountSection() {
 
 function NameBioSection() {
   return <>NameBioSection</>;
+}
+
+function OptionsMenu() {
+  const classes = useProfilePageStyles();
+
+  return (
+    <Dialog
+      open
+      classes={{
+        scrollPaper: classes.dialogScrollPaper,
+        paper: classes.dialogPaper,
+      }}
+      TransitionComponent={Zoom}
+    ></Dialog>
+  );
 }
 
 export default ProfilePage;
