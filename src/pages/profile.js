@@ -13,13 +13,17 @@ function ProfilePage() {
       title={`${defaultCurrentUser.name} (@${defaultCurrentUser.username})`}
     >
       <div className={classes.container}>
-        <Hidden smUp>
+        <Hidden xsDown>
           <Card className={classes.cardLarge}>
             <ProfilePicture />
-            <CardContent className={classes.cardContentLarge}></CardContent>
+            <CardContent className={classes.cardContentLarge}>
+              <ProfileNameSection />
+              <PostCountSection />
+              <NameBioSection />
+            </CardContent>
           </Card>
         </Hidden>
-        <Hidden xsDown></Hidden>
+        <Hidden smUp></Hidden>
       </div>
     </Layout>
   );
