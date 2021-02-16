@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   Dialog,
+  DialogTitle,
   Divider,
   Hidden,
   Typography,
@@ -19,10 +20,14 @@ import { GearIcon } from "../icons";
 function ProfilePage() {
   const classes = useProfilePageStyles();
   const [showOptionsMenu, setOptionsMenu] = React.useState(false);
-  const isOwner = true;
+  const isOwner = false;
 
   function handleOptionsMenuClick() {
     setOptionsMenu(true);
+  }
+
+  function handleCloseMenu() {
+    setOptionsMenu(false);
   }
 
   return (
@@ -60,6 +65,7 @@ function ProfilePage() {
             <PostCountSection />
           </Card>
         </Hidden>
+        {showOptionsMenu && <OptionsMenu handleCloseMenu={handleCloseMenu} />}
       </div>
     </Layout>
   );
@@ -69,7 +75,7 @@ function ProfileNameSection({ user, isOwner, handleOptionsMenuClick }) {
   const classes = useProfilePageStyles();
 
   let followButton;
-  const isFollowing = false;
+  const isFollowing = true;
   const isFollower = false;
 
   if (isFollowing) {
@@ -152,8 +158,13 @@ function NameBioSection() {
   return <>NameBioSection</>;
 }
 
-function OptionsMenu() {
+function OptionsMenu({ handleCloseMenu }) {
   const classes = useProfilePageStyles();
+  const [showLogOutMessage, setLogOutMessage] = React.useState(false);
+
+  function handleLogOutClick() {
+    setLogOutMessage(true);
+  }
 
   return (
     <Dialog
@@ -163,7 +174,26 @@ function OptionsMenu() {
         paper: classes.dialogPaper,
       }}
       TransitionComponent={Zoom}
-    ></Dialog>
+    >
+      {showLogOutMessage ? (
+        <DialogTitle className={classes.dialogTitle}>
+          Logging Out
+          <Typography color="textSecondary">
+            You need to log back in to continue using Instagram
+          </Typography>
+        </DialogTitle>
+      ) : (
+        <>
+          <OptionsItem text="Change Password" />
+          <OptionsItem text="Nametag" />
+          <OptionsItem text="Authorized Apps" />
+          <OptionsItem text="Notifications" />
+          <OptionsItem text="Privacy and Security" />
+          <OptionsItem text="Log Out" onClick={handleLogOutClick} />
+          <OptionsItem text="Cancel" onClick={handleCloseMenu} />
+        </>
+      )}
+    </Dialog>
   );
 }
 
