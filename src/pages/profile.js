@@ -25,4 +25,16 @@ function ProfilePage() {
   );
 }
 
+function ProfileNameSection() {
+  return <>ProfileNameSection</>;
+}
+
+function PostCountSection() {
+  return <>PostCountSection</>;
+}
+
+function NameBioSection() {
+  return <>NameBioSection</>;
+}
+
 export default ProfilePage;
