@@ -1,7 +1,7 @@
 import React from "react";
 import { useProfilePictureStyles } from "../../styles";
 
-function ProfilePicture() {
+function ProfilePicture({ size, image, isOwner }) {
   useProfilePictureStyles();
 
   return <div>ProfilePicture</div>;
