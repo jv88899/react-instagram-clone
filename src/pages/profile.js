@@ -111,7 +111,32 @@ function ProfileNameSection({ user, isOwner, handleOptionsMenuClick }) {
           )}
         </section>
       </Hidden>
-      <Hidden smUp></Hidden>
+      <Hidden smUp>
+        <section>
+          <div className={classes.usernameDivSmall}>
+            <Typography className={classes.username}>
+              {user.username}
+            </Typography>
+            {isOwner && (
+              <div
+                onClick={handleOptionsMenuClick}
+                className={classes.settingsWrapper}
+              >
+                <GearIcon className={classes.settings} />
+              </div>
+            )}
+          </div>
+          {isOwner ? (
+            <Link to="/accounts/edit">
+              <Button variant="outlined" style={{ width: "100%" }}>
+                Edit Profile
+              </Button>
+            </Link>
+          ) : (
+            followButton
+          )}
+        </section>
+      </Hidden>
     </>
   );
 }
