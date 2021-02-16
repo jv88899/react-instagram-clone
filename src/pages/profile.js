@@ -8,8 +8,10 @@ import {
   Card,
   CardContent,
   Dialog,
+  Divider,
   Hidden,
   Typography,
+  Zoom,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { GearIcon } from "../icons";
@@ -162,6 +164,17 @@ function OptionsMenu() {
       }}
       TransitionComponent={Zoom}
     ></Dialog>
+  );
+}
+
+function OptionsItem({ text, onClick }) {
+  return (
+    <>
+      <Button style={{ padding: "12px 8px" }} onClick={onClick}>
+        {text}
+      </Button>
+      <Divider />
+    </>
   );
 }
 
