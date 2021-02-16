@@ -18,7 +18,7 @@ function ProfilePage() {
           <Card className={classes.cardLarge}>
             <ProfilePicture isOwner={isOwner} />
             <CardContent className={classes.cardContentLarge}>
-              <ProfileNameSection />
+              <ProfileNameSection user={defaultCurrentUser} isOwner={isOwner} />
               <PostCountSection />
               <NameBioSection />
             </CardContent>
@@ -29,7 +29,10 @@ function ProfilePage() {
             <CardContent>
               <section className={classes.sectionSmall}>
                 <ProfilePicture size={77} isOwner={isOwner} />
-                <ProfileNameSection />
+                <ProfileNameSection
+                  user={defaultCurrentUser}
+                  isOwner={isOwner}
+                />
               </section>
               <NameBioSection />
             </CardContent>
