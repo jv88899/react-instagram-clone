@@ -6,8 +6,13 @@ import { defaultCurrentUser } from "../data";
 import { Card, CardContent, Hidden } from "@material-ui/core";
 
 function ProfilePage() {
-  const isOwner = true;
   const classes = useProfilePageStyles();
+  const [showOptionsMenu, setOptionsMenu] = React.useState(false);
+  const isOwner = true;
+
+  function handleOptionsMenuClick() {
+    setOptionsMenu(true);
+  }
 
   return (
     <Layout
@@ -18,7 +23,11 @@ function ProfilePage() {
           <Card className={classes.cardLarge}>
             <ProfilePicture isOwner={isOwner} />
             <CardContent className={classes.cardContentLarge}>
-              <ProfileNameSection user={defaultCurrentUser} isOwner={isOwner} />
+              <ProfileNameSection
+                user={defaultCurrentUser}
+                isOwner={isOwner}
+                handleOptionsMenuClick={handleOptionsMenuClick}
+              />
               <PostCountSection />
               <NameBioSection />
             </CardContent>
@@ -32,6 +41,7 @@ function ProfilePage() {
                 <ProfileNameSection
                   user={defaultCurrentUser}
                   isOwner={isOwner}
+                  handleOptionsMenuClick={handleOptionsMenuClick}
                 />
               </section>
               <NameBioSection />
