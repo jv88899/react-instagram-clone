@@ -3,7 +3,15 @@ import Layout from "../components/shared/Layout";
 import ProfilePicture from "../components/shared/ProfilePicture";
 import { useProfilePageStyles } from "../styles";
 import { defaultCurrentUser } from "../data";
-import { Card, CardContent, Hidden } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  Hidden,
+  Typography,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { GearIcon } from "../icons";
 
 function ProfilePage() {
   const classes = useProfilePageStyles();
@@ -54,8 +62,58 @@ function ProfilePage() {
   );
 }
 
-function ProfileNameSection() {
-  return <>ProfileNameSection</>;
+function ProfileNameSection({ user, isOwner, handleOptionsMenuClick }) {
+  const classes = useProfilePageStyles();
+
+  let followButton;
+  const isFollowing = false;
+  const isFollower = false;
+
+  if (isFollowing) {
+    followButton = (
+      <Button variant="outlined" className={classes.button}>
+        Following
+      </Button>
+    );
+  } else if (isFollower) {
+    followButton = (
+      <Button variant="contained" color="primary" className={classes.button}>
+        Follow Back
+      </Button>
+    );
+  } else {
+    followButton = (
+      <Button variant="contained" color="primary" className={classes.button}>
+        Follow
+      </Button>
+    );
+  }
+
+  return (
+    <>
+      <Hidden xsDown>
+        <section className={classes.usernameSection}>
+          <Typography className={classes.username}>{user.username}</Typography>
+          {isOwner ? (
+            <>
+              <Link to="/accounts/edit">
+                <Button variant="outlined">Edit Profile</Button>
+              </Link>
+              <div
+                onClick={handleOptionsMenuClick}
+                className={classes.settingsWrapper}
+              >
+                <GearIcon className={classes.settings} />
+              </div>
+            </>
+          ) : (
+            <>{followButton}</>
+          )}
+        </section>
+      </Hidden>
+      <Hidden smUp></Hidden>
+    </>
+  );
 }
 
 function PostCountSection() {
