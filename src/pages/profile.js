@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/shared/Layout";
 import ProfilePicture from "../components/shared/ProfilePicture";
+import ProfileTabs from "../components/profile/ProfileTabs";
 import { useProfilePageStyles } from "../styles";
 import { defaultCurrentUser } from "../data";
 import {
@@ -67,6 +68,7 @@ function ProfilePage() {
           </Card>
         </Hidden>
         {showOptionsMenu && <OptionsMenu handleCloseMenu={handleCloseMenu} />}
+        <ProfileTabs user={defaultCurrentUser} isOwner={isOwner} />
       </div>
     </Layout>
   );
