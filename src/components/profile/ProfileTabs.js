@@ -1,7 +1,8 @@
 import React from "react";
-import { Divider, Hidden, Tab, Tabs } from "@material-ui/core";
+import { Divider, Hidden, Tab, Tabs, Typography } from "@material-ui/core";
 import { useProfileTabsStyles } from "../../styles";
 import { GridIcon, SaveIcon } from "../../icons";
+import GridPost from "../shared/GridPost";
 
 function ProfileTabs({ user, isOwner }) {
   const classes = useProfileTabsStyles();
@@ -86,8 +87,31 @@ function ProfileTabs({ user, isOwner }) {
   );
 }
 
-function ProfilePosts() {
-  return <></>;
+function ProfilePosts({ user, isOwner }) {
+  const classes = useProfileTabsStyles();
+
+  if (user.posts.length === 0) {
+    return (
+      <section className={classes.profilePostsSection}>
+        <div className={classes.noContent}>
+          <div className={classes.uploadPhotoIcon} />
+          <Typography variant="h4">
+            {isOwner ? "Upload a Photo" : "No Photos"}
+          </Typography>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <article className={classes.article}>
+      <div className={classes.postContainer}>
+        {user.posts.map((post) => (
+          <GridPost key={post.id} post={post} />
+        ))}
+      </div>
+    </article>
+  );
 }
 
 function SavedPosts() {
