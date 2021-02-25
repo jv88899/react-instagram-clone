@@ -88,7 +88,9 @@ function EditProfilePage({ history }) {
               open={showDrawer}
               onClose={handleToggleDrawer}
               classes={{ paperAnchorLeft: classes.temporaryDrawer }}
-            ></Drawer>
+            >
+              {drawer}
+            </Drawer>
           </Hidden>
         </nav>
       </section>
