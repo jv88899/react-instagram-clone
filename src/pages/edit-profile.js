@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   Drawer,
   Hidden,
   IconButton,
@@ -141,7 +142,46 @@ function EditUserInfo({ user }) {
           </Typography>
         </div>
       </div>
-      <form className={classes.form}></form>
+      <form className={classes.form}>
+        <SectionItem text="Name" formItem={user.name} />
+        <SectionItem text="Username" formItem={user.username} />
+        <SectionItem text="Website" formItem={user.website} />
+        <div className={classes.sectionItem}>
+          <aside>
+            <Typography className={classes.bio}>Bio</Typography>
+          </aside>
+          <TextField
+            variant="outlined"
+            multiline
+            rowsMax={3}
+            rows={3}
+            fullWidth
+            value={user.bio}
+          />
+        </div>
+        <div className={classes.sectionItem}>
+          <div />
+          <Typography
+            color="textSecondary"
+            className={classes.justifySelfStart}
+          >
+            Personal Information
+          </Typography>
+        </div>
+        <SectionItem text="Email" formItem={user.email} type="email" />
+        <SectionItem text="Phone Number" formItem={user.phone_number} />
+        <div className={classes.sectionItem}>
+          <div />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.justifySelfStart}
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
     </section>
   );
 }
