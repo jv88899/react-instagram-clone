@@ -1,5 +1,12 @@
 import React from "react";
-import { Drawer, Hidden, IconButton, List, ListItem } from "@material-ui/core";
+import {
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
 import Layout from "../components/shared/Layout";
 import { useEditProfilePageStyles } from "../styles";
 import { Menu } from "@material-ui/icons";
@@ -56,7 +63,9 @@ function EditProfilePage({ history }) {
             selected: classes.listItemSelected,
             button: classes.listItemButton,
           }}
-        ></ListItem>
+        >
+          <ListItemText primary={option} />
+        </ListItem>
       ))}
     </List>
   );
