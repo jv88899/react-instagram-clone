@@ -92,6 +92,22 @@ function EditProfilePage({ history }) {
               {drawer}
             </Drawer>
           </Hidden>
+          <Hidden
+            xsDown
+            implementation="css"
+            className={classes.permanentDrawerRoot}
+          >
+            <Drawer
+              variant="permanent"
+              open
+              classes={{
+                paper: classes.permanentDrawerPaper,
+                root: classes.permanentDrawerRoot,
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
         </nav>
       </section>
     </Layout>
