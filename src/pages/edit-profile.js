@@ -6,11 +6,13 @@ import {
   List,
   ListItem,
   ListItemText,
+  Typography,
 } from "@material-ui/core";
 import Layout from "../components/shared/Layout";
 import { useEditProfilePageStyles } from "../styles";
 import { Menu } from "@material-ui/icons";
 import { defaultCurrentUser } from "../data";
+import ProfilePicture from "../components/shared/ProfilePicture";
 
 function EditProfilePage({ history }) {
   const classes = useEditProfilePageStyles();
@@ -119,7 +121,28 @@ function EditProfilePage({ history }) {
 }
 
 function EditUserInfo({ user }) {
-  return <>EditUserInfo</>;
+  const classes = useEditProfilePageStyles();
+
+  return (
+    <section className={classes.container}>
+      <div className={classes.pictureSectionItem}>
+        <ProfilePicture size={38} user={user} />
+        <div className={classes.justifySelfStart}>
+          <Typography className={classes.typography}>
+            {user.username}
+          </Typography>
+          <Typography
+            color="primary"
+            variant="body2"
+            className={classes.typographyChangePic}
+          >
+            Change Profile Photo
+          </Typography>
+        </div>
+      </div>
+      <form className={classes.form}></form>
+    </section>
+  );
 }
 
 export default EditProfilePage;
