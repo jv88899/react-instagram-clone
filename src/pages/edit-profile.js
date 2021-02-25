@@ -10,6 +10,7 @@ import {
 import Layout from "../components/shared/Layout";
 import { useEditProfilePageStyles } from "../styles";
 import { Menu } from "@material-ui/icons";
+import { defaultCurrentUser } from "../data";
 
 function EditProfilePage({ history }) {
   const classes = useEditProfilePageStyles();
@@ -109,9 +110,16 @@ function EditProfilePage({ history }) {
             </Drawer>
           </Hidden>
         </nav>
+        <main>
+          {path.includes("edit") && <EditUserInfo user={defaultCurrentUser} />}
+        </main>
       </section>
     </Layout>
   );
+}
+
+function EditUserInfo({ user }) {
+  return <>EditUserInfo</>;
 }
 
 export default EditProfilePage;
