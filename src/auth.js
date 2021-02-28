@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import React from "react";
-import App from "./App";
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -19,7 +18,7 @@ firebase.initializeApp({
 
 export const AuthContext = React.createContext();
 
-function AuthProvider() {
+function AuthProvider({ children }) {
   const [authState, setAuthState] = React.useState({ status: "loading" });
 
   React.useEffect(() => {
@@ -65,9 +64,9 @@ function AuthProvider() {
     return null;
   } else {
     return (
-      <AuthContext.Provider
-        value={{ authState, signInWithGoogle, signOut }}
-      ></AuthContext.Provider>
+      <AuthContext.Provider value={{ authState, signInWithGoogle, signOut }}>
+        {children}
+      </AuthContext.Provider>
     );
   }
 }
