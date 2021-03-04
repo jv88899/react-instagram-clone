@@ -52,8 +52,10 @@ function SignUpPage() {
               </div>
               <div className={classes.orLine}></div>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <TextField
+                name="email"
+                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Email"
@@ -62,6 +64,8 @@ function SignUpPage() {
                 className={classes.textField}
               />
               <TextField
+                name="name"
+                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Full Name"
@@ -69,6 +73,8 @@ function SignUpPage() {
                 className={classes.textField}
               />
               <TextField
+                name="username"
+                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Username"
@@ -77,6 +83,8 @@ function SignUpPage() {
                 autoComplete="username"
               />
               <TextField
+                name="password"
+                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Password"
