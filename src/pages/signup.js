@@ -16,6 +16,11 @@ function SignUpPage() {
     password: "",
   });
 
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  }
+
   return (
     <>
       <SEO title="Sign up" />
