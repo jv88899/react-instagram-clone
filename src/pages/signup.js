@@ -2,7 +2,7 @@ import React from "react";
 import { useSignUpPageStyles } from "../styles";
 import SEO from "../components/shared/Seo";
 import { Button, Card, TextField, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { LoginWithFacebook } from "./login";
 import { AuthContext } from "../auth";
 
@@ -15,6 +15,7 @@ function SignUpPage() {
     username: "",
     password: "",
   });
+  const history = useHistory();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -24,6 +25,7 @@ function SignUpPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     await signUpWithEmailAndPassword(values);
+    history.push("/");
   }
 
   return (
