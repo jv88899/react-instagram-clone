@@ -4,9 +4,17 @@ import SEO from "../components/shared/Seo";
 import { Button, Card, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { LoginWithFacebook } from "./login";
+import { AuthContext } from "../auth";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
+  const { signUpWithEmailAndPassword } = React.useContext(AuthContext);
+  const [values, setValues] = React.useState({
+    email: "",
+    name: "",
+    username: "",
+    password: "",
+  });
 
   return (
     <>
