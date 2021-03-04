@@ -87,7 +87,14 @@ function AuthProvider({ children }) {
     return null;
   } else {
     return (
-      <AuthContext.Provider value={{ authState, signInWithGoogle, signOut }}>
+      <AuthContext.Provider
+        value={{
+          authState,
+          signInWithGoogle,
+          signOut,
+          signUpWithEmailAndPassword,
+        }}
+      >
         {children}
       </AuthContext.Provider>
     );
