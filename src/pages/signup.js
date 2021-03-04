@@ -5,9 +5,11 @@ import { Button, Card, TextField, Typography } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import { LoginWithFacebook } from "./login";
 import { AuthContext } from "../auth";
+import { useForm } from "react-hook-form";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
+  const { register, handleSubmit } = useForm();
   const { signUpWithEmailAndPassword } = React.useContext(AuthContext);
   const [values, setValues] = React.useState({
     email: "",
