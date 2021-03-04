@@ -12,7 +12,8 @@ const provider = new firebase.auth.GoogleAuthProvider();
 firebase.initializeApp({
   apiKey: "AIzaSyA5uc5SQ-3YixFTuM8umGhz474LTInCpQ8",
   authDomain: "instagram-react-clone-206b7.firebaseapp.com",
-  databaseURL: "https://instagram-react-clone-206b7.firebaseio.com",
+  databaseURL:
+    "https://instagram-react-clone-206b7-default-rtdb.firebaseio.com",
   projectId: "instagram-react-clone-206b7",
   storageBucket: "instagram-react-clone-206b7.appspot.com",
   messagingSenderId: "710339080588",
