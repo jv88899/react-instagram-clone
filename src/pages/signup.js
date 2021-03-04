@@ -11,24 +11,13 @@ function SignUpPage() {
   const classes = useSignUpPageStyles();
   const { register, handleSubmit } = useForm();
   const { signUpWithEmailAndPassword } = React.useContext(AuthContext);
-  const [values, setValues] = React.useState({
-    email: "",
-    name: "",
-    username: "",
-    password: "",
-  });
   const history = useHistory();
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    await signUpWithEmailAndPassword(values);
-    history.push("/");
-  }
+  // async function handleSubmit(event) {
+  //   event.preventDefault();
+  //   await signUpWithEmailAndPassword(values);
+  //   history.push("/");
+  // }
 
   return (
     <>
@@ -57,7 +46,6 @@ function SignUpPage() {
             <form onSubmit={handleSubmit}>
               <TextField
                 name="email"
-                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Email"
@@ -67,7 +55,6 @@ function SignUpPage() {
               />
               <TextField
                 name="name"
-                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Full Name"
@@ -76,7 +63,6 @@ function SignUpPage() {
               />
               <TextField
                 name="username"
-                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Username"
@@ -86,7 +72,6 @@ function SignUpPage() {
               />
               <TextField
                 name="password"
-                onChange={handleChange}
                 fullWidth
                 variant="filled"
                 label="Password"
