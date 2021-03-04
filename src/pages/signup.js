@@ -6,6 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { LoginWithFacebook } from "./login";
 import { AuthContext } from "../auth";
 import { useForm } from "react-hook-form";
+import isEmail from "validator/lib/isEmail";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
@@ -46,6 +47,10 @@ function SignUpPage() {
             <form onSubmit={handleSubmit}>
               <TextField
                 name="email"
+                inputRef={register({
+                  required: true,
+                  validate: (input) => isEmail(input),
+                })}
                 fullWidth
                 variant="filled"
                 label="Email"
@@ -55,6 +60,11 @@ function SignUpPage() {
               />
               <TextField
                 name="name"
+                inputRef={register({
+                  required: true,
+                  minLength: 5,
+                  maxLength: 20,
+                })}
                 fullWidth
                 variant="filled"
                 label="Full Name"
@@ -63,6 +73,14 @@ function SignUpPage() {
               />
               <TextField
                 name="username"
+                inputRef={register({
+                  required: true,
+                  minLength: 5,
+                  maxLength: 20,
+                  // accept only lowercase/uppercase letters
+                  // numbers, periods and underscores
+                  pattern: /^[a-zA-Z0-9_.]*$/,
+                })}
                 fullWidth
                 variant="filled"
                 label="Username"
@@ -72,6 +90,10 @@ function SignUpPage() {
               />
               <TextField
                 name="password"
+                inputRef={register({
+                  required: true,
+                  minLength: 5,
+                })}
                 fullWidth
                 variant="filled"
                 label="Password"
