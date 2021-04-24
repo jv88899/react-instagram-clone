@@ -10,7 +10,7 @@ import isEmail from "validator/lib/isEmail";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({ mode: "onBlur" });
   const { signUpWithEmailAndPassword } = React.useContext(AuthContext);
   const history = useHistory();
 
