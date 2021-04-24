@@ -1,12 +1,19 @@
 import React from "react";
 import { useSignUpPageStyles } from "../styles";
 import SEO from "../components/shared/Seo";
-import { Button, Card, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import { LoginWithFacebook } from "./login";
 import { AuthContext } from "../auth";
 import { useForm } from "react-hook-form";
 import isEmail from "validator/lib/isEmail";
+import { CheckCircleOutline, HighlightOff } from "@material-ui/icons";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
@@ -24,8 +31,14 @@ function SignUpPage() {
     console.log({ data });
   }
 
+  const errorIcon = (
+    <InputAdornment>
+      <Highlightoff style={{ color: "red", height: 30, width: 30 }} />
+    </InputAdornment>
+  );
+
   return (
-    <>
+    <In>
       <SEO title="Sign up" />
       <section className={classes.section}>
         <article>
@@ -139,7 +152,7 @@ function SignUpPage() {
           </Card>
         </article>
       </section>
-    </>
+    </InputA>
   );
 }
 
