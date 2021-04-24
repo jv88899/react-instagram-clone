@@ -20,6 +20,10 @@ function SignUpPage() {
   //   history.push("/");
   // }
 
+  function onSubmit(data) {
+    console.log({ data });
+  }
+
   return (
     <>
       <SEO title="Sign up" />
@@ -44,7 +48,7 @@ function SignUpPage() {
               </div>
               <div className={classes.orLine}></div>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 name="email"
                 inputRef={register({
