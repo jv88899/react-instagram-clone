@@ -37,6 +37,12 @@ function SignUpPage() {
     </InputAdornment>
   );
 
+  const validIcon = (
+    <InputAdornment>
+      <CheckCircleOutline style={{ color: "#ccc", height: 30, width: 30 }} />
+    </InputAdornment>
+  );
+
   return (
     <In>
       <SEO title="Sign up" />
@@ -152,7 +158,7 @@ function SignUpPage() {
           </Card>
         </article>
       </section>
-    </InputA>
+    </InputAdornment>
   );
 }
 
