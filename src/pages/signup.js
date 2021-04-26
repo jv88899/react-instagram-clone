@@ -17,7 +17,9 @@ import { CheckCircleOutline, HighlightOff } from "@material-ui/icons";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
-  const { register, handleSubmit, formState } = useForm({ mode: "onBlur" });
+  const { register, handleSubmit, formState, errors } = useForm({
+    mode: "onBlur",
+  });
   const { signUpWithEmailAndPassword } = React.useContext(AuthContext);
   const history = useHistory();
 
@@ -33,7 +35,7 @@ function SignUpPage() {
 
   const errorIcon = (
     <InputAdornment>
-      <Highlightoff style={{ color: "red", height: 30, width: 30 }} />
+      <HighlightOff style={{ color: "red", height: 30, width: 30 }} />
     </InputAdornment>
   );
 
@@ -44,7 +46,7 @@ function SignUpPage() {
   );
 
   return (
-    <In>
+    <>
       <SEO title="Sign up" />
       <section className={classes.section}>
         <article>
@@ -74,6 +76,11 @@ function SignUpPage() {
                   required: true,
                   validate: (input) => isEmail(input),
                 })}
+                InputProps={{
+                  endAdornment: errors.email
+                    ? errorIcon
+                    : formState.touched.email && validIcon,
+                }}
                 fullWidth
                 variant="filled"
                 label="Email"
@@ -88,6 +95,11 @@ function SignUpPage() {
                   minLength: 5,
                   maxLength: 20,
                 })}
+                InputProps={{
+                  endAdornment: errors.name
+                    ? errorIcon
+                    : formState.touched.name && validIcon,
+                }}
                 fullWidth
                 variant="filled"
                 label="Full Name"
@@ -104,6 +116,11 @@ function SignUpPage() {
                   // numbers, periods and underscores
                   pattern: /^[a-zA-Z0-9_.]*$/,
                 })}
+                InputProps={{
+                  endAdornment: errors.username
+                    ? errorIcon
+                    : formState.touched.username && validIcon,
+                }}
                 fullWidth
                 variant="filled"
                 label="Username"
@@ -117,6 +134,11 @@ function SignUpPage() {
                   required: true,
                   minLength: 5,
                 })}
+                InputProps={{
+                  endAdornment: errors.password
+                    ? errorIcon
+                    : formState.touched.password && validIcon,
+                }}
                 fullWidth
                 variant="filled"
                 label="Password"
@@ -158,7 +180,7 @@ function SignUpPage() {
           </Card>
         </article>
       </section>
-    </InputAdornment>
+    </>
   );
 }
 
