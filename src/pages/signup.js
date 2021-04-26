@@ -22,6 +22,7 @@ function SignUpPage() {
   });
   const { signUpWithEmailAndPassword } = React.useContext(AuthContext);
   const history = useHistory();
+  const [error, setError] = React.useState("");
 
   // async function handleSubmit(event) {
   //   event.preventDefault();
@@ -36,6 +37,7 @@ function SignUpPage() {
       history.push("/");
     } catch (error) {
       console.error("Error signing up", error);
+      setError(error.message);
     }
   }
 
