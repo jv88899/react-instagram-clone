@@ -165,6 +165,7 @@ function SignUpPage() {
               >
                 Sign Up
               </Button>
+              <AuthError error={error} />
             </form>
             <div className={classes.orContainer}>
               <div className={classes.orLine}></div>
@@ -189,6 +190,21 @@ function SignUpPage() {
         </article>
       </section>
     </>
+  );
+}
+
+function AuthError({ error }) {
+  return (
+    Boolean(error) && (
+      <Typography
+        align="center"
+        gutterBottom
+        variant="body2"
+        style={{ color: "red" }}
+      >
+        {error}
+      </Typography>
+    )
   );
 }
 
