@@ -33,6 +33,7 @@ function SignUpPage() {
   async function onSubmit(data) {
     // console.log({ data });
     try {
+      setError("");
       await signUpWithEmailAndPassword(data);
       history.push("/");
     } catch (error) {
