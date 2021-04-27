@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardHeader,
+  InputAdornment,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -46,6 +47,13 @@ function LoginPage() {
                   required: true,
                   minLength: 5,
                 })}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <Button>Show</Button>
+                    </InputAdornment>
+                  ),
+                }}
                 fullWidth
                 variant="filled"
                 label="Password"
