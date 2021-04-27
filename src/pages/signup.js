@@ -38,6 +38,15 @@ function SignUpPage() {
       history.push("/");
     } catch (error) {
       console.error("Error signing up", error);
+      // setError(error.message);
+      handleError(error);
+    }
+  }
+
+  function handleError(error) {
+    if (error.message.includes("users_username_key")) {
+      setError("Username already taken");
+    } else if (error.code.includes("auth")) {
       setError(error.message);
     }
   }
