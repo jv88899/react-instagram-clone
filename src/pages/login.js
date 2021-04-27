@@ -23,6 +23,10 @@ function LoginPage() {
     console.log({ data });
   }
 
+  function togglePasswordVisibility() {
+    setPasswordVisibility((prev) => !prev);
+  }
+
   return (
     <>
       <SEO title="Login" />
