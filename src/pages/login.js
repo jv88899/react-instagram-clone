@@ -16,8 +16,9 @@ import FacebookIconWhite from "../images/facebook-icon-white.png";
 
 function LoginPage() {
   const classes = useLoginPageStyles();
-  const { register, handleSubmit } = useForm({ mode: "onBlur" });
+  const { register, handleSubmit, watch } = useForm({ mode: "onBlur" });
   const [showPassword, setPasswordVisibility] = React.useState(false);
+  const hasPassword = Boolean(watch("password"));
 
   function onSubmit(data) {
     console.log({ data });
@@ -36,6 +37,7 @@ function LoginPage() {
             <CardHeader className={classes.cardHeader} />
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
+                name="input"
                 inputRef={register({
                   required: true,
                   minLength: 5,
@@ -48,21 +50,24 @@ function LoginPage() {
                 autoComplete="username"
               />
               <TextField
+                name="password"
                 inputRef={register({
                   required: true,
                   minLength: 5,
                 })}
                 InputProps={{
-                  endAdornment: (
+                  endAdornment: hasPassword && (
                     <InputAdornment>
-                      <Button>Show</Button>
+                      <Button onClick={togglePasswordVisibility}>
+                        {showPassword ? "Hide" : "Show"}
+                      </Button>
                     </InputAdornment>
                   ),
                 }}
+                type={showPassword ? "text" : "password"}
                 fullWidth
                 variant="filled"
                 label="Password"
-                type="password"
                 margin="dense"
                 className={classes.textField}
                 autoComplete="current-password"
