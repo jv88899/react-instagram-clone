@@ -60,7 +60,8 @@ function SignUpPage() {
       query: CHECK_IF_USERNAME_TAKEN,
       variables,
     });
-    console.log({ response });
+    const isUsernameValid = response.data.users.length === 0;
+    return isUsernameValid;
   }
 
   const errorIcon = (
