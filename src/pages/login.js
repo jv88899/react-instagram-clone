@@ -9,11 +9,17 @@ import {
 import SEO from "../components/shared/Seo";
 import { useLoginPageStyles } from "../styles";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import FacebookIconBlue from "../images/facebook-icon-blue.svg";
 import FacebookIconWhite from "../images/facebook-icon-white.png";
 
 function LoginPage() {
   const classes = useLoginPageStyles();
+  const { register, handleSubmit } = useForm({ mode: "onBlur" });
+
+  function onSubmit(data) {
+    console.log({ data });
+  }
 
   return (
     <>
@@ -22,7 +28,7 @@ function LoginPage() {
         <article>
           <Card className={classes.card}>
             <CardHeader className={classes.cardHeader} />
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 fullWidth
                 variant="filled"
