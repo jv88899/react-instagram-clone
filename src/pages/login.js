@@ -17,6 +17,7 @@ import FacebookIconWhite from "../images/facebook-icon-white.png";
 function LoginPage() {
   const classes = useLoginPageStyles();
   const { register, handleSubmit } = useForm({ mode: "onBlur" });
+  const [showPassword, setPasswordVisibility] = React.useState(false);
 
   function onSubmit(data) {
     console.log({ data });
