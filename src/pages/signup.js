@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import isEmail from "validator/lib/isEmail";
 import { CheckCircleOutline, HighlightOff } from "@material-ui/icons";
 import { useApolloClient } from "@apollo/react-hooks";
+import { CHECK_IF_USERNAME_TAKEN } from "../graphql/queries";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
@@ -54,7 +55,12 @@ function SignUpPage() {
   }
 
   async function validateUsername(username) {
-    await client.query({});
+    const variables = { username };
+    const response = await client.query({
+      query: CHECK_IF_USERNAME_TAKEN,
+      variables,
+    });
+    console.log({ response });
   }
 
   const errorIcon = (
