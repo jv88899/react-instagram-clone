@@ -16,7 +16,9 @@ import FacebookIconWhite from "../images/facebook-icon-white.png";
 
 function LoginPage() {
   const classes = useLoginPageStyles();
-  const { register, handleSubmit, watch } = useForm({ mode: "onBlur" });
+  const { register, handleSubmit, watch, formState } = useForm({
+    mode: "onBlur",
+  });
   const [showPassword, setPasswordVisibility] = React.useState(false);
   const hasPassword = Boolean(watch("password"));
 
@@ -73,6 +75,7 @@ function LoginPage() {
                 autoComplete="current-password"
               />
               <Button
+                disabled={!formState.isValid || formState.isSubmitting}
                 variant="contained"
                 fullWidth
                 color="primary"
