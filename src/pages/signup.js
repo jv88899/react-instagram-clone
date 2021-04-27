@@ -180,7 +180,7 @@ function SignUpPage() {
                 autoComplete="new-password"
               />
               <Button
-                disabled={!formState.isValid || formState.isSubmitted}
+                disabled={!formState.isValid || formState.isSubmitting}
                 variant="contained"
                 fullWidth
                 color="primary"
