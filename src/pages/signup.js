@@ -14,6 +14,7 @@ import { AuthContext } from "../auth";
 import { useForm } from "react-hook-form";
 import isEmail from "validator/lib/isEmail";
 import { CheckCircleOutline, HighlightOff } from "@material-ui/icons";
+import { useApolloClient } from "@apollo/react-hooks";
 
 function SignUpPage() {
   const classes = useSignUpPageStyles();
@@ -23,6 +24,7 @@ function SignUpPage() {
   const { signUpWithEmailAndPassword } = React.useContext(AuthContext);
   const history = useHistory();
   const [error, setError] = React.useState("");
+  const client = useApolloClient();
 
   // async function handleSubmit(event) {
   //   event.preventDefault();
@@ -49,6 +51,10 @@ function SignUpPage() {
     } else if (error.code.includes("auth")) {
       setError(error.message);
     }
+  }
+
+  async function validateUsername(username) {
+    await client.query({});
   }
 
   const errorIcon = (
@@ -130,6 +136,7 @@ function SignUpPage() {
                   required: true,
                   minLength: 5,
                   maxLength: 20,
+                  validate: async (input) => await validateUsername(input),
                   // accept only lowercase/uppercase letters
                   // numbers, periods and underscores
                   pattern: /^[a-zA-Z0-9_.]*$/,
