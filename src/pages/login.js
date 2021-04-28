@@ -15,6 +15,8 @@ import FacebookIconBlue from "../images/facebook-icon-blue.svg";
 import FacebookIconWhite from "../images/facebook-icon-white.png";
 import { AuthContext } from "../auth";
 import isEmail from "validator/lib/isEmail";
+import { useApolloClient } from "@apollo/react-hooks";
+import { GET_USER_EMAIL } from "../graphql/queries";
 
 function LoginPage() {
   const classes = useLoginPageStyles();
@@ -25,10 +27,24 @@ function LoginPage() {
   const [showPassword, setPasswordVisibility] = React.useState(false);
   const hasPassword = Boolean(watch("password"));
   const history = useHistory();
+  const client = useApolloClient();
 
   async function onSubmit({ input, password }) {
+    if (!isEmail(input)) {
+      await getUserEmail(input);
+    }
+
     await logInWithEmailAndPassword(input, password);
     history.push("/");
+  }
+
+  async function getUserEmail(input) {
+    const variables = { input };
+    const response = await client.query({
+      query: GET_USER_EMAIL,
+      variables,
+    });
+    console.log(response);
   }
 
   function togglePasswordVisibility() {
