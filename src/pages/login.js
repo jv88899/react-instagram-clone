@@ -42,6 +42,7 @@ function LoginPage() {
       setTimeout(() => history.push("/"), 0);
     } catch (error) {
       console.error("Error logging in", error);
+      handleError(error);
     }
   }
 
