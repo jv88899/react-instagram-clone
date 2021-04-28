@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import FacebookIconBlue from "../images/facebook-icon-blue.svg";
 import FacebookIconWhite from "../images/facebook-icon-white.png";
 import { AuthContext } from "../auth";
+import isEmail from "validator/lib/isEmail";
 
 function LoginPage() {
   const classes = useLoginPageStyles();
