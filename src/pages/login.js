@@ -17,6 +17,7 @@ import { AuthContext } from "../auth";
 import isEmail from "validator/lib/isEmail";
 import { useApolloClient } from "@apollo/react-hooks";
 import { GET_USER_EMAIL } from "../graphql/queries";
+import { AuthError } from "./signup";
 
 function LoginPage() {
   const classes = useLoginPageStyles();
@@ -25,17 +26,23 @@ function LoginPage() {
   });
   const { logInWithEmailAndPassword } = React.useContext(AuthContext);
   const [showPassword, setPasswordVisibility] = React.useState(false);
+  const [error, setError] = React.useState("");
   const hasPassword = Boolean(watch("password"));
   const history = useHistory();
   const client = useApolloClient();
 
   async function onSubmit({ input, password }) {
-    if (!isEmail(input)) {
-      input = await getUserEmail(input);
-    }
+    try {
+      setError("");
+      if (!isEmail(input)) {
+        input = await getUserEmail(input);
+      }
 
-    await logInWithEmailAndPassword(input, password);
-    setTimeout(() => history.push("/"), 0);
+      await logInWithEmailAndPassword(input, password);
+      setTimeout(() => history.push("/"), 0);
+    } catch (error) {
+      console.error("Error logging in", error);
+    }
   }
 
   async function getUserEmail(input) {
@@ -118,6 +125,7 @@ function LoginPage() {
               <div className={classes.orLine}></div>
             </div>
             <LoginWithFacebook color="secondary" iconColor="blue" />
+            <AuthError error={error} />
             <Button fullWidth color="secondary">
               <Typography variant="caption">Forgot password?</Typography>
             </Button>
