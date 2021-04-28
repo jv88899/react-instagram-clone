@@ -31,11 +31,11 @@ function LoginPage() {
 
   async function onSubmit({ input, password }) {
     if (!isEmail(input)) {
-      await getUserEmail(input);
+      input = await getUserEmail(input);
     }
 
     await logInWithEmailAndPassword(input, password);
-    history.push("/");
+    setTimeout(() => history.push("/"), 0);
   }
 
   async function getUserEmail(input) {
@@ -44,7 +44,9 @@ function LoginPage() {
       query: GET_USER_EMAIL,
       variables,
     });
-    console.log(response);
+
+    const userEmail = response.data.users[0]?.email || "no@email.com";
+    return userEmail;
   }
 
   function togglePasswordVisibility() {
