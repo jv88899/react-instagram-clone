@@ -13,16 +13,21 @@ import {
 import Layout from "../components/shared/Layout";
 import { useEditProfilePageStyles } from "../styles";
 import { Menu } from "@material-ui/icons";
-import { defaultCurrentUser } from "../data";
 import ProfilePicture from "../components/shared/ProfilePicture";
 import { UserContext } from "../App";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_EDIT_USER_PROFILE } from "../graphql/queries";
+import LoadingScreen from "../components/shared/LoadingScreen";
 
 function EditProfilePage({ history }) {
-  const { me, currentUserId } = React.useContext(UserContext);
-  console.log({ me, currentUserId });
+  const { currentUserId } = React.useContext(UserContext);
+  const variables = { id: currentUserId };
+  const { data, loading } = useQuery(GET_EDIT_USER_PROFILE, { variables });
   const classes = useEditProfilePageStyles();
   const path = history.location.pathname;
   const [showDrawer, setDrawer] = React.useState(false);
+
+  if (loading) return <LoadingScreen />;
 
   function handleToggleDrawer() {
     setDrawer((prev) => !prev);
@@ -118,7 +123,7 @@ function EditProfilePage({ history }) {
           </Hidden>
         </nav>
         <main>
-          {path.includes("edit") && <EditUserInfo user={defaultCurrentUser} />}
+          {path.includes("edit") && <EditUserInfo user={data.users_by_pk} />}
         </main>
       </section>
     </Layout>
