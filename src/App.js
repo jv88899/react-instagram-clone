@@ -27,7 +27,7 @@ function App() {
   const isAuth = authState.status === "in";
   const userId = isAuth ? authState.user.uid : null;
   const variables = { userId };
-  const { data, loading } = useSubscription(ME);
+  const { data, loading } = useSubscription(ME, { variables });
   const history = useHistory();
   const location = useLocation();
   const prevLocation = React.useRef(location);
