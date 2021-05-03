@@ -159,10 +159,12 @@ export function LoginWithFacebook({ color, iconColor, variant }) {
   const facebookIcon =
     iconColor === "blue" ? FacebookIconBlue : FacebookIconWhite;
   const [error, setError] = React.useState("");
+  const history = useHistory();
 
   async function handleLogInWithGoogle() {
     try {
       await logInWithGoogle();
+      history.push("/");
     } catch (errror) {
       console.error("Error logging in with Google", error);
       setError(error.message);
