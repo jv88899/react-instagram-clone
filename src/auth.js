@@ -56,7 +56,8 @@ function AuthProvider({ children }) {
   }, []);
 
   async function logInWithGoogle() {
-    await firebase.auth().signInWithPopup(provider);
+    const data = await firebase.auth().signInWithPopup(provider);
+    console.log({ data });
   }
 
   async function logInWithEmailAndPassword(email, password) {

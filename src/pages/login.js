@@ -155,18 +155,37 @@ function LoginPage() {
 
 export function LoginWithFacebook({ color, iconColor, variant }) {
   const classes = useLoginPageStyles();
+  const { logInWithGoogle } = React.useContext(AuthContext);
   const facebookIcon =
     iconColor === "blue" ? FacebookIconBlue : FacebookIconWhite;
+  const [error, setError] = React.useState("");
+
+  async function handleLogInWithGoogle() {
+    try {
+      await logInWithGoogle();
+    } catch (errror) {
+      console.error("Error logging in with Google", error);
+      setError(error.message);
+    }
+  }
 
   return (
-    <Button fullWidth color={color} variant={variant}>
-      <img
-        src={facebookIcon}
-        alt="facebook icon"
-        className={classes.facebookIcon}
-      />
-      Log In with Facebook
-    </Button>
+    <>
+      <Button
+        onClick={handleLogInWithGoogle}
+        fullWidth
+        color={color}
+        variant={variant}
+      >
+        <img
+          src={facebookIcon}
+          alt="facebook icon"
+          className={classes.facebookIcon}
+        />
+        Log In with Facebook
+      </Button>
+      <AuthError error={error} />
+    </>
   );
 }
 
