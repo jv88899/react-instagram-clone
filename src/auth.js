@@ -99,9 +99,9 @@ function AuthProvider({ children }) {
         value={{
           authState,
           logInWithGoogle,
+          logInWithEmailAndPassword,
           signOut,
           signUpWithEmailAndPassword,
-          logInWithEmailAndPassword,
         }}
       >
         {children}
