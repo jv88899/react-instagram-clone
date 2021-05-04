@@ -23,6 +23,7 @@ import isURL from "validator/lib/isURL";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import { EDIT_USER } from "../graphql/mutations";
+import { AuthContext } from "../auth";
 
 function EditProfilePage({ history }) {
   const { currentUserId } = React.useContext(UserContext);
@@ -135,17 +136,32 @@ function EditProfilePage({ history }) {
   );
 }
 
+const DEFAULT_ERROR = { type: "", message: "" };
+
 function EditUserInfo({ user }) {
   const classes = useEditProfilePageStyles();
+  const [error, setError] = React.useState(DEFAULT_ERROR);
   const { register, handleSubmit } = useForm({ mode: "onBlur" });
+  const { updateEmail } = React.useContext(AuthContext);
   const [editUser] = useMutation(EDIT_USER);
 
   async function onSubmit(data) {
     try {
+      setError(DEFAULT_ERROR);
       const variables = { ...data, id: user.id };
+      await updateEmail(data.email);
       await editUser({ variables });
     } catch (error) {
-      console.error("error", error);
+      console.error("Error updating profile", error);
+      handleError(error);
+    }
+  }
+
+  function handleError(error) {
+    if (error.message.includes("users_username_key")) {
+      setError({ type: "username", message: "This username is already taken" });
+    } else if (error.code.includes("auth")) {
+      setError({ type: "email", message: error.message });
     }
   }
 
@@ -179,6 +195,7 @@ function EditUserInfo({ user }) {
         />
         <SectionItem
           name="username"
+          error={error}
           inputRef={register({
             required: true,
             pattern: /^[a-zA-Z0-9_.]*$/,
@@ -230,6 +247,7 @@ function EditUserInfo({ user }) {
         </div>
         <SectionItem
           name="email"
+          error={error}
           inputRef={register({
             required: true,
             validate: (input) => isEmail(input),
@@ -262,7 +280,7 @@ function EditUserInfo({ user }) {
   );
 }
 
-function SectionItem({ type = "text", text, formItem, inputRef, name }) {
+function SectionItem({ type = "text", text, formItem, inputRef, name, error }) {
   const classes = useEditProfilePageStyles();
 
   return (
@@ -280,6 +298,7 @@ function SectionItem({ type = "text", text, formItem, inputRef, name }) {
       <TextField
         name={name}
         inputRef={inputRef}
+        helperText={error?.type === name && error.message}
         variant="outlined"
         fullWidth
         defaultValue={formItem}
