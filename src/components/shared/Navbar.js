@@ -28,6 +28,7 @@ import NotificationList from "../notification/NotificationList";
 import { useNProgress } from "@tanem/react-nprogress";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { SEARCH_USERS } from "../../graphql/queries";
+import { UserContext } from "../../App";
 
 function Navbar({ minimalNavbar }) {
   const classes = useNavbarStyles();
@@ -152,6 +153,7 @@ function Search({ history }) {
 }
 
 function Links({ path }) {
+  const { me } = React.useContext(UserContext);
   const classes = useNavbarStyles();
   const [showList, setList] = React.useState(false);
   const [showTooltip, setTooltip] = React.useState(true);
@@ -205,10 +207,7 @@ function Links({ path }) {
                 : ""
             }
           ></div>
-          <Avatar
-            src={defaultCurrentUser.profile_image}
-            className={classes.profileImage}
-          />
+          <Avatar src={me.profile_image} className={classes.profileImage} />
         </Link>
       </div>
     </div>
