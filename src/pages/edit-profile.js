@@ -15,13 +15,14 @@ import { useEditProfilePageStyles } from "../styles";
 import { Menu } from "@material-ui/icons";
 import ProfilePicture from "../components/shared/ProfilePicture";
 import { UserContext } from "../App";
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { GET_EDIT_USER_PROFILE } from "../graphql/queries";
 import LoadingScreen from "../components/shared/LoadingScreen";
 import { useForm } from "react-hook-form";
 import isURL from "validator/lib/isURL";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
+import { EDIT_USER } from "../graphql/mutations";
 
 function EditProfilePage({ history }) {
   const { currentUserId } = React.useContext(UserContext);
@@ -137,9 +138,15 @@ function EditProfilePage({ history }) {
 function EditUserInfo({ user }) {
   const classes = useEditProfilePageStyles();
   const { register, handleSubmit } = useForm({ mode: "onBlur" });
+  const [editUser] = useMutation(EDIT_USER);
 
-  function onSubmit(data) {
-    console.log({ data });
+  async function onSubmit(data) {
+    try {
+      const variables = { ...data, id: user.id };
+      await editUser({ variables });
+    } catch (error) {
+      console.error("error", error);
+    }
   }
 
   return (
