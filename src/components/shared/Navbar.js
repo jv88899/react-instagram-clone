@@ -189,11 +189,17 @@ function Links({ path }) {
     setAddPostDialog(true);
   }
 
+  function handleClose() {
+    setAddPostDialog(false);
+  }
+
   return (
     <div className={classes.linksContainer}>
       {showList && <NotificationList handleHideList={handleHideList} />}
       <div className={classes.linksWrapper}>
-        {showAddPostDialog && <AddPostDialog />}
+        {showAddPostDialog && (
+          <AddPostDialog media={media} handleClose={handleClose} />
+        )}
         <Hidden xsDown>
           <input
             type="file"
