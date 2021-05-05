@@ -1,7 +1,6 @@
 import React from "react";
 import { createEditor } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
-import { makeStyles } from "@material-ui/core";
 import { useAddPostDialogStyles } from "../../styles";
 
 const initialValue = [
