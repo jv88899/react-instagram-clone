@@ -16,6 +16,10 @@ import { Slate, Editable, withReact } from "slate-react";
 import { useAddPostDialogStyles } from "../../styles";
 import { ArrowBackIos, PinDrop } from "@material-ui/icons";
 import { UserContext } from "../../App";
+import serialize from "../../utils/serialize";
+import handleImageUpload from "../../utils/handleImageUpload";
+import { CREATE_POST } from "../../graphql/mutations";
+import { useMutation } from "@apollo/react-hooks";
 
 const initialValue = [
   {
@@ -26,10 +30,26 @@ const initialValue = [
 
 function AddPostDialog({ media, handleClose }) {
   const classes = useAddPostDialogStyles();
-  const { me } = React.useContext(UserContext);
+  const { me, currentUserId } = React.useContext(UserContext);
   const editor = React.useMemo(() => withReact(createEditor()), []);
   const [value, setValue] = React.useState(initialValue);
   const [location, setLocation] = React.useState("");
+  const [submitting, setSubmitting] = React.useState(false);
+  const [createPost] = useMutation(CREATE_POST);
+
+  async function handleSharePost() {
+    setSubmitting(true);
+    const url = await handleImageUpload(media);
+    const variables = {
+      userId: currentUserId,
+      location,
+      caption: serialize({ children: value }),
+      media: url,
+    };
+    await createPost({ variables });
+    setSubmitting(false);
+    window.location.reload();
+  }
 
   return (
     <Dialog fullScreen open onClose={handleClose}>
@@ -39,7 +59,12 @@ function AddPostDialog({ media, handleClose }) {
           <Typography align="center" variant="body1" className={classes.title}>
             New Post
           </Typography>
-          <Button color="primary" className={classes.share}>
+          <Button
+            color="primary"
+            className={classes.share}
+            disabled={submitting}
+            onClick={handleSharePost}
+          >
             Share
           </Button>
         </Toolbar>
