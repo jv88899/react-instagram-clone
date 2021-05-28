@@ -38,18 +38,23 @@ function Post({ postId }) {
     id,
     media,
     likes,
+    likes_aggregate,
+    saved_posts,
+    user_id,
+    location,
     user,
     caption,
     comments,
     created_at,
   } = data.posts_by_pk;
+  const likesCount = likes_aggregate.aggregate.count;
 
   return (
     <div className={classes.postContainer}>
       <article className={classes.article}>
         {/* Post Header */}
         <div className={classes.postHeader}>
-          <UserCard user={user} avatarSize={32} />
+          <UserCard user={user} location={location} avatarSize={32} />
           <MoreIcon
             className={classes.moreIcon}
             onClick={() => setOptionsDialog(true)}
@@ -70,7 +75,7 @@ function Post({ postId }) {
             <SaveButton />
           </div>
           <Typography className={classes.likes} variant="subtitle2">
-            <span>{likes === 1 ? "1 like" : `${likes} likes`}</span>
+            <span>{likesCount === 1 ? "1 like" : `${likesCount} likes`}</span>
           </Typography>
           <div
             style={{
