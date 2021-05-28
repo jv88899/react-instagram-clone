@@ -33,7 +33,15 @@ function Post({ postId }) {
 
   // setTimeout(() => setLoading(false), 2000);
   if (loading) return <PostSkeleton />;
-  const { id, media, likes, user, caption, comments } = data.posts_by_pk;
+  const {
+    id,
+    media,
+    likes,
+    user,
+    caption,
+    comments,
+    created_at,
+  } = data.posts_by_pk;
 
   return (
     <div className={classes.postContainer}>
@@ -63,28 +71,20 @@ function Post({ postId }) {
           <Typography className={classes.likes} variant="subtitle2">
             <span>{likes === 1 ? "1 like" : `${likes} likes`}</span>
           </Typography>
-          <div className={classes.postCaptionContainer}>
-            <Typography
-              variant="body2"
-              component="span"
-              className={classes.postCaption}
-              dangerouslySetInnerHTML={{ __html: caption }}
+          <div
+            style={{
+              overflowY: "scroll",
+              padding: "16px 12px !important",
+              height: "100%",
+            }}
+          >
+            <AuthorCaption
+              user={user}
+              createdAt={created_at}
+              caption={caption}
             />
             {comments.map((comment) => (
-              <div key={comment.id}>
-                <Link to={`/${comment.user.username}`}>
-                  <Typography
-                    variant="subtitle2"
-                    component="span"
-                    className={classes.commentUsername}
-                  >
-                    {comment.user.username}
-                  </Typography>{" "}
-                  <Typography variant="body2" component="span">
-                    {comment.contet}
-                  </Typography>
-                </Link>
-              </div>
+              <UserComment key={comment.id} comment={comment} />
             ))}
           </div>
           <Typography color="textSecondary" className={classes.datePosted}>
@@ -103,6 +103,14 @@ function Post({ postId }) {
       )}
     </div>
   );
+}
+
+function AuthorCaption() {
+  return null;
+}
+
+function UserComment() {
+  return null;
 }
 
 function LikeButton() {
