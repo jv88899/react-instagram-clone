@@ -17,6 +17,7 @@ import {
   Hidden,
   Divider,
   TextField,
+  Avatar,
 } from "@material-ui/core";
 import OptionsDialog from "../shared/OptionsDialog";
 // import { defaultPost } from "../../data";
@@ -105,8 +106,43 @@ function Post({ postId }) {
   );
 }
 
-function AuthorCaption() {
-  return null;
+function AuthorCaption({ user, caption, createdAt }) {
+  const classes = usePostStyles();
+
+  return (
+    <div style={{ display: "flex" }}>
+      <Avatar
+        src={user.profile_image}
+        alt="User avatar"
+        style={{ marginRight: 14, width: 32, height: 32 }}
+      />
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <Link to={user.username}>
+          <Typography
+            variant="subtitle2"
+            component="span"
+            className={classes.username}
+          >
+            {user.username}
+          </Typography>
+          <Typography
+            variant="body2"
+            component="span"
+            className={classes.postCaption}
+            style={{ paddingLeft: 0 }}
+            dangerouslySetInnerHTML={{ __html: caption }}
+          />
+        </Link>
+        <Typography
+          style={{ marginTop: 16, marginBottom: 4, display: "inline-block" }}
+          color="textSecondary"
+          variant="caption"
+        >
+          {createdAt}
+        </Typography>
+      </div>
+    </div>
+  );
 }
 
 function UserComment() {
