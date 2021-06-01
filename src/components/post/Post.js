@@ -67,7 +67,7 @@ function Post({ postId }) {
         {/* Post Buttons */}
         <div className={classes.postButtonsWrapper}>
           <div className={classes.postButtons}>
-            <LikeButton />
+            <LikeButton likes={likes} postId={id} authorId={user.id} />
             <Link to={`/p/${id}`}>
               <CommentIcon />
             </Link>
