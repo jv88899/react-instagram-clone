@@ -92,3 +92,13 @@ export const LIKE_POST = gql`
     }
   }
 `;
+
+export const UNLIKE_POST = gql`
+  mutation unlikePost($postId: uuid!, $userId: uuid!) {
+    delete_likes(
+      where: { post_id: { _eq: $postId }, user_id: { _eq: $userId } }
+    ) {
+      affected_rows
+    }
+  }
+`;
