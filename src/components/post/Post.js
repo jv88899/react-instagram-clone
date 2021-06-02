@@ -277,6 +277,7 @@ function Comment({ postId }) {
       userId: currentUserId,
     };
     createComment({ variables });
+    setContent("");
   }
 
   return (
