@@ -22,9 +22,10 @@ import {
 import OptionsDialog from "../shared/OptionsDialog";
 // import { defaultPost } from "../../data";
 import PostSkeleton from "./PostSkeleton";
-import { useSubscription } from "@apollo/react-hooks";
+import { useMutation, useSubscription } from "@apollo/react-hooks";
 import { GET_POST } from "../../graphql/subscriptions";
 import { UserContext } from "../../App";
+import { LIKE_POST, UNLIKE_POST } from "../../graphql/mutations";
 
 function Post({ postId }) {
   const classes = usePostStyles();
@@ -202,6 +203,9 @@ function LikeButton({ likes, authorId, postId }) {
   const Icon = liked ? UnlikeIcon : LikeIcon;
   const className = liked ? classes.liked : classes.like;
   const onClick = liked ? handleUnlike : handleLike;
+  const [likePost] = useMutation(LIKE_POST);
+  const [unlikePost] = useMutation(UNLIKE_POST);
+
   const variables = {
     postId,
     userId: currentUserId,
@@ -211,11 +215,13 @@ function LikeButton({ likes, authorId, postId }) {
   function handleLike() {
     // console.log("like");
     setLiked(true);
+    likePost({ variables });
   }
 
   function handleUnlike() {
     // console.log("unlike");
     setLiked(false);
+    unlikePost({ variables });
   }
 
   return <Icon className={className} onClick={onClick} />;
