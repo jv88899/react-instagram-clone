@@ -90,7 +90,14 @@ export const LIKE_POST = gql`
     insert_likes(objects: { post_id: $postId, user_id: $userId }) {
       affected_rows
     }
-    insert_notifications(objects: {post_id: $postId, user_id: $userId, profile_id: $profileId, type: 'like'}) {
+    insert_notifications(
+      objects: {
+        post_id: $postId
+        user_id: $userId
+        profile_id: $profileId
+        type: "like"
+      }
+    ) {
       affected_rows
     }
   }
@@ -103,7 +110,14 @@ export const UNLIKE_POST = gql`
     ) {
       affected_rows
     }
-    delete_notifications(where: {post_id: {_eq: $postId}, profile_id: {_eq: $profileId}, user_id: {_eq: $userId}, type: {_eq: 'like'}}) {
+    delete_notifications(
+      where: {
+        post_id: { _eq: $postId }
+        profile_id: { _eq: $profileId }
+        user_id: { _eq: $userId }
+        type: { _eq: "like" }
+      }
+    ) {
       affected_rows
     }
   }
