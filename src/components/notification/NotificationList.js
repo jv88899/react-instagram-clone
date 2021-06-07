@@ -41,8 +41,9 @@ function NotificationList({ handleHideList, notifications }) {
                   color="textSecondary"
                   className={classes.typography}
                 >
-                  {isLike && `likes your photo. 4d`}
-                  {isFollow && `started following you. 5d`}
+                  {isLike && `likes your photo. ${notification.created_at}`}
+                  {isFollow &&
+                    `started following you. ${notification.created_at}`}
                 </Typography>
               </div>
             </div>
@@ -52,7 +53,7 @@ function NotificationList({ handleHideList, notifications }) {
                   <Avatar src={notification.post.media} alt="post cover" />
                 </Link>
               )}
-              {isFollow && <FollowButton />}
+              {isFollow && <FollowButton id={notification.user.id} />}
             </div>
           </Grid>
         );
