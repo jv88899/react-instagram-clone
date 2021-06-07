@@ -29,6 +29,7 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { SEARCH_USERS } from "../../graphql/queries";
 import { UserContext } from "../../App";
 import AddPostDialog from "../post/AddPostDialog";
+import { isAfter } from "date-fns/esm";
 
 function Navbar({ minimalNavbar }) {
   const classes = useNavbarStyles();
@@ -154,9 +155,13 @@ function Search({ history }) {
 
 function Links({ path }) {
   const { me } = React.useContext(UserContext);
+  const newNotifications = me.notifications.filter(({ created_at }) =>
+    isAfter(new Date(created_at), new Date(me.last_checked))
+  );
+  const hasNotifications = newNotifications.length > 0;
   const classes = useNavbarStyles();
   const [showList, setList] = React.useState(false);
-  const [showTooltip, setTooltip] = React.useState(true);
+  const [showTooltip, setTooltip] = React.useState(hasNotifications);
   const [media, setMedia] = React.useState(null);
   const [showAddPostDialog, setAddPostDialog] = React.useState(false);
   const inputRef = React.useRef();
@@ -195,7 +200,12 @@ function Links({ path }) {
 
   return (
     <div className={classes.linksContainer}>
-      {showList && <NotificationList handleHideList={handleHideList} />}
+      {showList && (
+        <NotificationList
+          notifications={me.notifications}
+          handleHideList={handleHideList}
+        />
+      )}
       <div className={classes.linksWrapper}>
         {showAddPostDialog && (
           <AddPostDialog media={media} handleClose={handleClose} />
