@@ -154,7 +154,7 @@ function Search({ history }) {
 }
 
 function Links({ path }) {
-  const { me } = React.useContext(UserContext);
+  const { me, currentUserId } = React.useContext(UserContext);
   const newNotifications = me.notifications.filter(({ created_at }) =>
     isAfter(new Date(created_at), new Date(me.last_checked))
   );
@@ -204,6 +204,7 @@ function Links({ path }) {
         <NotificationList
           notifications={me.notifications}
           handleHideList={handleHideList}
+          currentUserId={currentUserId}
         />
       )}
       <div className={classes.linksWrapper}>
@@ -230,7 +231,10 @@ function Links({ path }) {
           TransitionComponent={Zoom}
           title={<NotificationToolTip notifications={newNotifications} />}
         >
-          <div className={classes.notifications} onClick={handleToggleList}>
+          <div
+            className={hasNotifications ? classes.notifications : ""}
+            onClick={handleToggleList}
+          >
             {showList ? <LikeActiveIcon /> : <LikeIcon />}
           </div>
         </RedTooltip>
