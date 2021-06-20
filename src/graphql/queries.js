@@ -58,7 +58,6 @@ export const GET_USER_PROFILE = gql`
       username
       website
       bio
-      profile_image
       posts_aggregate {
         aggregate {
           count
@@ -69,25 +68,14 @@ export const GET_USER_PROFILE = gql`
           count
         }
       }
-      saved_posts(order_by: { created_at: desc }) {
-        post {
-          id
-          media
-          likes_aggregate {
-            aggregate {
-              count
-            }
-          }
-          comments_aggregate {
-            aggregate {
-              count
-            }
-          }
+      following_aggregate {
+        aggregate {
+          count
         }
       }
-      posts(order_by: { created_at: desc }) {
-        id
+      posts {
         media
+        id
         likes_aggregate {
           aggregate {
             count

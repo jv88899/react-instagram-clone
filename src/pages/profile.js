@@ -29,10 +29,12 @@ function ProfilePage() {
   const classes = useProfilePageStyles();
   const [showOptionsMenu, setOptionsMenu] = React.useState(false);
   const variables = { username };
-  const { data, loading } = useQuery(GET_USER_PROFILE, { variables });
+  const { data, loading } = useQuery(GET_USER_PROFILE, {
+    variables,
+  });
 
   if (loading) return <LoadingScreen />;
-  const [user] = data.users;
+  const user = data.users[0];
   const isOwner = user.id === currentUserId;
 
   function handleOptionsMenuClick() {
@@ -48,7 +50,7 @@ function ProfilePage() {
       <div className={classes.container}>
         <Hidden xsDown>
           <Card className={classes.cardLarge}>
-            <ProfilePicture isOwner={isOwner} />
+            <ProfilePicture isOwner={isOwner} image={user.profile_image} />
             <CardContent className={classes.cardContentLarge}>
               <ProfileNameSection
                 user={user}
@@ -64,7 +66,11 @@ function ProfilePage() {
           <Card className={classes.cardSmall}>
             <CardContent>
               <section className={classes.sectionSmall}>
-                <ProfilePicture size={77} isOwner={isOwner} />
+                <ProfilePicture
+                  size={77}
+                  isOwner={isOwner}
+                  image={user.profile_image}
+                />
                 <ProfileNameSection
                   user={user}
                   isOwner={isOwner}
@@ -217,7 +223,7 @@ function PostCountSection({ user }) {
         {options.map((option) => (
           <div key={option} className={classes.followingText}>
             <Typography className={classes.followingCount}>
-              {user[option].length}
+              {user[`${option}_aggregate`].aggregate.count}
             </Typography>
             <Hidden xsDown>
               <Typography>{option}</Typography>
