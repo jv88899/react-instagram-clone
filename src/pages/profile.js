@@ -3,7 +3,6 @@ import Layout from "../components/shared/Layout";
 import ProfilePicture from "../components/shared/ProfilePicture";
 import ProfileTabs from "../components/profile/ProfileTabs";
 import { useProfilePageStyles } from "../styles";
-import { defaultCurrentUser } from "../data";
 import {
   Avatar,
   Button,
@@ -16,14 +15,25 @@ import {
   Typography,
   Zoom,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { GearIcon } from "../icons";
 import { AuthContext } from "../auth";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_USER_PROFILE } from "../graphql/queries";
+import LoadingScreen from "../components/shared/LoadingScreen";
+import { UserContext } from "../App";
 
 function ProfilePage() {
+  const { username } = useParams();
+  const { currentUserId } = React.useContext(UserContext);
   const classes = useProfilePageStyles();
   const [showOptionsMenu, setOptionsMenu] = React.useState(false);
-  const isOwner = true;
+  const variables = { username };
+  const { data, loading } = useQuery(GET_USER_PROFILE, { variables });
+
+  if (loading) return <LoadingScreen />;
+  const [user] = data.users;
+  const isOwner = user.id === currentUserId;
 
   function handleOptionsMenuClick() {
     setOptionsMenu(true);
@@ -34,21 +44,19 @@ function ProfilePage() {
   }
 
   return (
-    <Layout
-      title={`${defaultCurrentUser.name} (@${defaultCurrentUser.username})`}
-    >
+    <Layout title={`${user.name} (@${user.username})`}>
       <div className={classes.container}>
         <Hidden xsDown>
           <Card className={classes.cardLarge}>
             <ProfilePicture isOwner={isOwner} />
             <CardContent className={classes.cardContentLarge}>
               <ProfileNameSection
-                user={defaultCurrentUser}
+                user={user}
                 isOwner={isOwner}
                 handleOptionsMenuClick={handleOptionsMenuClick}
               />
-              <PostCountSection user={defaultCurrentUser} />
-              <NameBioSection user={defaultCurrentUser} />
+              <PostCountSection user={user} />
+              <NameBioSection user={user} />
             </CardContent>
           </Card>
         </Hidden>
@@ -58,18 +66,18 @@ function ProfilePage() {
               <section className={classes.sectionSmall}>
                 <ProfilePicture size={77} isOwner={isOwner} />
                 <ProfileNameSection
-                  user={defaultCurrentUser}
+                  user={user}
                   isOwner={isOwner}
                   handleOptionsMenuClick={handleOptionsMenuClick}
                 />
               </section>
-              <NameBioSection user={defaultCurrentUser} />
+              <NameBioSection user={user} />
             </CardContent>
-            <PostCountSection user={defaultCurrentUser} />
+            <PostCountSection user={user} />
           </Card>
         </Hidden>
         {showOptionsMenu && <OptionsMenu handleCloseMenu={handleCloseMenu} />}
-        <ProfileTabs user={defaultCurrentUser} isOwner={isOwner} />
+        <ProfileTabs user={user} isOwner={isOwner} />
       </div>
     </Layout>
   );
