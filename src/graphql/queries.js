@@ -118,7 +118,7 @@ export const SUGGEST_USERS = gql`
       limit: $limit
       where: {
         _or: [
-          { id: { _in: $followingIds } }
+          { id: { _in: $followerIds } }
           { created_at: { _gt: $createdAt } }
         ]
       }
