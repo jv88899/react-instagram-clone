@@ -4,7 +4,6 @@ import FeedPostSkeleton from "../components/feed/FeedPostSkeleton";
 import FeedSideSuggestions from "../components/feed/FeedSideSuggestions";
 import Layout from "../components/shared/Layout";
 import UserCard from "../components/shared/UserCard";
-import { getDefaultPost } from "../data";
 import { Hidden } from "@material-ui/core";
 import LoadingScreen from "../components/shared/LoadingScreen";
 import { LoadingLargeIcon } from "../icons";
