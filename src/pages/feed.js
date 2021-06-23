@@ -21,13 +21,13 @@ function FeedPage() {
   const { data, loading, fetchMore } = useQuery(GET_FEED, { variables });
   const isPageBottom = usePageBottom();
 
-  function handleUpdateQuery(prev, { fetchMoreResult }) {
+  const handleUpdateQuery = React.useCallback((prev, { fetchMoreResult }) => {
     if (fetchMoreResult.posts.length === 0) {
       setEndOfFeed(true);
       return prev;
     }
     return { posts: [...prev.posts, ...fetchMoreResult.posts] };
-  }
+  }, []);
 
   React.useEffect(() => {
     if (!isPageBottom || !data) return;
@@ -37,7 +37,7 @@ function FeedPage() {
       variables,
       updateQuery: handleUpdateQuery,
     });
-  }, [isPageBottom, data, fetchMore, handleUpdateQuery]);
+  }, [isPageBottom, data, fetchMore, handleUpdateQuery, feedIds]);
 
   if (loading) return <LoadingScreen />;
 
