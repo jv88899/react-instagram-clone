@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Dialog, Divider, Zoom } from "@material-ui/core";
 import { useOptionsDialogStyles } from "../../styles";
 import { Link } from "react-router-dom";
-import { defaultPost } from "../../data";
+import { UserContext } from "../../App";
 
-function OptionsDialog({ onClose }) {
+function OptionsDialog({ onClose, postId, authorId }) {
   const classes = useOptionsDialogStyles();
 
   return (
@@ -19,7 +19,7 @@ function OptionsDialog({ onClose }) {
       <Button className={classes.redButton}>Unfollow</Button>
       <Divider />
       <Button className={classes.button}>
-        <Link to={`/p/${defaultPost.id}`}>Go to post</Link>
+        <Link to={`/p/${postId}`}>Go to post</Link>
       </Button>
       <Divider />
       <Button className={classes.button}>Share</Button>

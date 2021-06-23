@@ -10,6 +10,8 @@ function PostModal() {
   const { postId } = useParams();
   const classes = usePostModalStyles();
 
+  console.log("postId", postId);
+
   return (
     <>
       <Modal
