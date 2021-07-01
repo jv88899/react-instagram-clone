@@ -31,8 +31,7 @@
     "slate-react": "^0.62.0",
     "slick-carousel": "^1.8.1",
     "subscriptions-transport-ws": "^0.9.16",
-    "validator": "^13.5.2",
-    "vercel": "^23.0.1"
+    "validator": "^13.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
