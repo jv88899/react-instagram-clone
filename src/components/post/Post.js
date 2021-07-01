@@ -20,7 +20,6 @@ import {
   Avatar,
 } from "@material-ui/core";
 import OptionsDialog from "../shared/OptionsDialog";
-// import { defaultPost } from "../../data";
 import PostSkeleton from "./PostSkeleton";
 import { useMutation, useSubscription } from "@apollo/react-hooks";
 import { GET_POST } from "../../graphql/subscriptions";
@@ -37,14 +36,10 @@ import Img from "react-graceful-image";
 
 function Post({ postId }) {
   const classes = usePostStyles();
-  // const [loading, setLoading] = React.useState(true);
   const [showOptionsDialog, setOptionsDialog] = React.useState(false);
   const variables = { postId };
   const { data, loading } = useSubscription(GET_POST, { variables });
 
-  console.log("data", data);
-
-  // setTimeout(() => setLoading(false), 2000);
   if (loading) return <PostSkeleton />;
   const {
     id,
@@ -52,7 +47,6 @@ function Post({ postId }) {
     likes,
     likes_aggregate,
     saved_posts,
-    user_id,
     location,
     user,
     caption,
@@ -227,13 +221,11 @@ function LikeButton({ likes, authorId, postId }) {
   };
 
   function handleLike() {
-    // console.log("like");
     setLiked(true);
     likePost({ variables });
   }
 
   function handleUnlike() {
-    // console.log("unlike");
     setLiked(false);
     unlikePost({ variables });
   }
@@ -258,13 +250,11 @@ function SaveButton({ savedPosts, postId }) {
   };
 
   function handleSave() {
-    // console.log("save");
     setSaved(true);
     savePost({ variables });
   }
 
   function handleRemove() {
-    // console.log("remove");
     setSaved(false);
     unsavePost({ variables });
   }
