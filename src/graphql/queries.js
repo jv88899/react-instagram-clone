@@ -1,4 +1,5 @@
 import { gql } from "apollo-boost";
+import { userFields } from "./fragments";
 
 export const CHECK_IF_USERNAME_TAKEN = gql`
   query checkIfUsernameTaken($username: String!) {
@@ -42,12 +43,10 @@ export const SEARCH_USERS = gql`
         _or: [{ username: { _ilike: $query } }, { name: { _ilike: $query } }]
       }
     ) {
-      id
-      username
-      name
-      profile_image
+      ...userFields
     }
   }
+  ${userFields}
 `;
 
 export const GET_USER_PROFILE = gql`
@@ -123,12 +122,10 @@ export const SUGGEST_USERS = gql`
         ]
       }
     ) {
-      id
-      username
-      name
-      profile_image
+      ...userFields
     }
   }
+  ${userFields}
 `;
 
 export const EXPLORE_POSTS = gql`
