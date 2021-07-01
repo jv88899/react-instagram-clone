@@ -233,7 +233,6 @@ export const GET_FEED = gql`
         created_at
         user {
           username
-          profile_image
         }
       }
     }

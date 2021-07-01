@@ -81,7 +81,7 @@ function FeedPost({ post, index }) {
               <CommentIcon />
             </Link>
             <ShareIcon />
-            <SaveButton />
+            <SaveButton savedPosts={saved_posts} postId={id} />
           </div>
           <Typography className={classes.likes} variant="subtitle2">
             <span>{likesCount === 1 ? "1 like" : `${likesCount} likes`}</span>
@@ -151,7 +151,7 @@ function FeedPost({ post, index }) {
         </div>
         <Hidden xsDown>
           <Divider />
-          <Comment />
+          <Comment postId={id} />
         </Hidden>
       </article>
       {showFollowSuggestions && <FollowSuggestions />}
@@ -216,28 +216,78 @@ function LikeButton({ likes, postId, authorId }) {
   return <Icon className={className} onClick={onClick} />;
 }
 
-function SaveButton() {
+function SaveButton({ postId, savedPosts }) {
   const classes = useFeedPostStyles();
-  const [saved, setSaved] = React.useState(false);
+  const { currentUserId } = React.useContext(UserContext);
+  const isAlreadySaved = savedPosts.some(
+    ({ user_id }) => user_id === currentUserId
+  );
+  const [saved, setSaved] = React.useState(isAlreadySaved);
   const Icon = saved ? RemoveIcon : SaveIcon;
   const onClick = saved ? handleRemove : handleSave;
+  const [savePost] = useMutation(SAVE_POST);
+  const [removePost] = useMutation(UNSAVE_POST);
+  const variables = {
+    postId,
+    userId: currentUserId,
+  };
 
   function handleSave() {
-    console.log("like");
     setSaved(true);
+    savePost({ variables });
   }
 
   function handleRemove() {
-    console.log("remove");
     setSaved(false);
+    removePost({ variables });
   }
 
   return <Icon className={classes.saveIcon} onClick={onClick} />;
 }
 
-function Comment() {
+function Comment({ postId }) {
+  const { currentUserId, feedIds } = React.useContext(UserContext);
   const classes = useFeedPostStyles();
   const [content, setContent] = React.useState("");
+  const [createComment] = useMutation(CREATE_COMMENT);
+
+  function handleUpdate(cache, result) {
+    const variables = { limit: 2, feedIds };
+    const data = cache.readQuery({
+      query: GET_FEED,
+      variables,
+    });
+    const oldComment = result.data.insert_comments.returning[0];
+    const newComment = {
+      ...oldComment,
+      user: { ...oldComment.user },
+    };
+    const posts = data.posts.map((post) => {
+      const newPost = {
+        ...post,
+        comments: [...post.comments, newComment],
+        comments_aggregate: {
+          ...post.comments_aggregate,
+          aggregate: {
+            ...post.comments_aggregate.aggregate,
+            count: post.comments_aggregate.aggregate.count + 1,
+          },
+        },
+      };
+      return post.id === postId ? newPost : post;
+    });
+    cache.writeQuery({ query: GET_FEED, data: { posts } });
+    setContent("");
+  }
+
+  function handleAddComment() {
+    const variables = {
+      content,
+      postId,
+      userId: currentUserId,
+    };
+    createComment({ variables, update: handleUpdate });
+  }
 
   return (
     <div className={classes.commentContainer}>
@@ -258,6 +308,7 @@ function Comment() {
         }}
       />
       <Button
+        onClick={handleAddComment}
         color="primary"
         className={classes.commentButton}
         disabled={!content.trim()}
