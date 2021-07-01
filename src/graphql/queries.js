@@ -1,5 +1,5 @@
 import { gql } from "apollo-boost";
-import { userFields } from "./fragments";
+import { gridPostFields, userFields } from "./fragments";
 
 export const CHECK_IF_USERNAME_TAKEN = gql`
   query checkIfUsernameTaken($username: String!) {
@@ -75,36 +75,15 @@ export const GET_USER_PROFILE = gql`
       }
       saved_posts(order_by: { created_at: desc }) {
         post {
-          id
-          media
-          likes_aggregate {
-            aggregate {
-              count
-            }
-          }
-          comments_aggregate {
-            aggregate {
-              count
-            }
-          }
+          ...gridPostFields
         }
       }
       posts(order_by: { created_at: desc }) {
-        media
-        id
-        likes_aggregate {
-          aggregate {
-            count
-          }
-        }
-        comments_aggregate {
-          aggregate {
-            count
-          }
-        }
+        ...gridPostFields
       }
     }
   }
+  ${gridPostFields}
 `;
 
 export const SUGGEST_USERS = gql`
@@ -138,20 +117,10 @@ export const EXPLORE_POSTS = gql`
       }
       where: { id: { _nin: $followingIds } }
     ) {
-      id
-      media
-      likes_aggregate {
-        aggregate {
-          count
-        }
-      }
-      comments_aggregate {
-        aggregate {
-          count
-        }
-      }
+      ...gridPostFields
     }
   }
+  ${gridPostFields}
 `;
 
 export const GET_MORE_POSTS_FROM_USER = gql`
@@ -160,20 +129,10 @@ export const GET_MORE_POSTS_FROM_USER = gql`
       limit: 6
       where: { user_id: { _eq: $userId }, _not: { id: { _eq: $postId } } }
     ) {
-      id
-      media
-      likes_aggregate {
-        aggregate {
-          count
-        }
-      }
-      comments_aggregate {
-        aggregate {
-          count
-        }
-      }
+      ...gridPostFields
     }
   }
+  ${gridPostFields}
 `;
 
 export const GET_POST = gql`
