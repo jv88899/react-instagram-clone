@@ -8,7 +8,6 @@ import { useLazyQuery, useQuery } from "@apollo/react-hooks";
 import { GET_MORE_POSTS_FROM_USER, GET_POST } from "../../graphql/queries";
 
 function MorePostsFromUser({ postId }) {
-  console.log("postId", postId);
   const variables = { postId };
   const { data, loading } = useQuery(GET_POST, { variables });
   const [

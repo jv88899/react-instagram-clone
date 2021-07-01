@@ -27,21 +27,12 @@ function SignUpPage() {
   const [error, setError] = React.useState("");
   const client = useApolloClient();
 
-  // async function handleSubmit(event) {
-  //   event.preventDefault();
-  //   await signUpWithEmailAndPassword(values);
-  //   history.push("/");
-  // }
-
   async function onSubmit(data) {
-    // console.log({ data });
     try {
       setError("");
       await signUpWithEmailAndPassword(data);
       setTimeout(() => history.push("/"), 0);
     } catch (error) {
-      console.error("Error signing up", error);
-      // setError(error.message);
       handleError(error);
     }
   }

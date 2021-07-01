@@ -159,7 +159,6 @@ function EditUserInfo({ user }) {
       await editUser({ variables });
       setOpen(true);
     } catch (error) {
-      console.error("Error updating profile", error);
       handleError(error);
     }
   }
